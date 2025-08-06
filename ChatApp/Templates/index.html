@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome to the Chat Application</h1>  
+    <form>
+        <label for="message"></label>
+        <p>
+            <input type="text" name="message" id="message" >
+            <button type="submit">Send</button>
+        </p>
+
+    </form> 
+
+    
+    <script>
+
+        const ws = new WebSocket("ws://localhost:8000/ws");
+
+        ws.onopen = () => {
+            console.log("WebSocket connection established");
+        }
+        ws.onmessage = (event) => {
+            const message = JSON.parse(event.data);
+            console.log("Message from server:", message);
+        }
+
+        ws.onerror = (error) => {
+            console.error("WebSocket error:", error);
+        }
+
+        ws.onclose = () => {
+            console.log("WebSocket connection closed");
+        }
+
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
+            const formData = new FormData(form);
+            const message = formData.get('message');
+            event.preventDefault();
+
+            ws.send(JSON.stringify({ type: "message", content: message }));
+        });
+
+
+
+    </script> 
+</body>
+</html>

@@ -1,0 +1,30 @@
+/* Chat Header Styles */
+
+.chat-header {
+  position: sticky;
+  top: 0;
+background: linear-gradient(to right, #ff00ea, #001eff);
+  color: rgb(0, 0, 0);
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.chat-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.connection-status {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.connection-status.connected {
+  color: #d4edda;
+}
+
+.connection-status.disconnected {
+  color: #f8d7da;
+}

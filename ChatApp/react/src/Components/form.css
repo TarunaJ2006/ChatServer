@@ -1,0 +1,244 @@
+/* Chat App - Window with Fixed Input */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+}
+
+.chat-container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+/* Fixed Header Section */
+.chat-header {
+  position: sticky;
+  top: 0;
+  background-color: #007bff;
+  color: white;
+  padding: 15px 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.chat-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.connection-status {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.connection-status.connected {
+  color: #d4edda;
+}
+
+.connection-status.disconnected {
+  color: #f8d7da;
+}
+
+/* Fixed Message Input Section */
+.message-form-container {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #ddd;
+  z-index: 99;
+}
+
+.message-form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.message-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.message-input:focus {
+  border-color: #007bff;
+}
+
+.send-button {
+  padding: 12px 25px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 80px;
+}
+
+.send-button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.send-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Messages Section - No Internal Scroll */
+.messages-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 400px;
+}
+
+.messages-header {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.no-messages {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  padding: 50px 20px;
+  background-color: white;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+/* Message Bubbles */
+.message-item {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  word-wrap: break-word;
+}
+
+.message-item.own-message {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end;
+  margin-left: auto;
+  border-bottom-right-radius: 5px;
+}
+
+.message-item.system-message {
+  background-color: #17a2b8;
+  color: white;
+  align-self: center;
+  text-align: center;
+  max-width: 90%;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.message-item.notification-message {
+  background-color: #ffc107;
+  color: #212529;
+  align-self: center;
+  text-align: center;
+  max-width: 90%;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+.message-item.regular-message {
+  background-color: #e9ecef;
+  color: #212529;
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
+}
+
+.message-header {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+
+.message-item.own-message .message-header {
+  color: rgba(255,255,255,0.8);
+}
+
+.message-content {
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+/* Footer Info */
+.connection-info {
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 50px; /* Add space at bottom for scrolling */
+}
+
+/* Remove internal scrollbar styling since we're using window scroll */
+/* Add some spacing for better window scrolling experience */
+.chat-container::after {
+  content: '';
+  display: block;
+  height: 100px; /* Extra space at bottom */
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .chat-container {
+    margin: 10px;
+    border-radius: 5px;
+  }
+  
+  .message-item {
+    max-width: 85%;
+  }
+  
+  .message-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  .chat-header {
+    padding: 12px 15px;
+  }
+  
+  .message-form-container {
+    padding: 12px 15px;
+  }
+  
+  .messages-container {
+    padding: 15px;
+  }
+}
