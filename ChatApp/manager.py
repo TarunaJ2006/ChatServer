@@ -100,3 +100,5 @@ class websocket_manager:
     def get_connected_count(self) -> int:
         return len(self.connected_clients)
 
+    # PR marker: minor non-functional change to trigger pull request creation
+
