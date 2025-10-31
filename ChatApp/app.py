@@ -5,6 +5,13 @@ from fastapi.websockets import WebSocket, WebSocketDisconnect
 from manager import websocket_manager
 
 
+from fastapi import FastAPI
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
+from fastapi.websockets import WebSocket, WebSocketDisconnect
+from manager import websocket_manager
+
+
 app = FastAPI()
 
 
@@ -12,11 +19,13 @@ manager = websocket_manager()
 
 templates = Jinja2Templates(
     directory="Templates"
-    )
+)
+
 
 @app.get("/")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
+
 
 @app.get("/stats")
 async def get_stats():
@@ -25,6 +34,7 @@ async def get_stats():
         "connected_clients": manager.get_connected_count(),
         "status": "running"
     }
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
